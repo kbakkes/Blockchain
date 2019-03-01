@@ -51,12 +51,8 @@ function fillChunk(chunkedArray){
 }
 
 function addUpArrays(array){
-    
+
 }
-
-
-
-
 
     console.log('Start solving....');
     stringToASCII(string);
