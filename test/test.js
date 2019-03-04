@@ -15,7 +15,17 @@ describe('Array', function() {
     });
     describe('Fill to ten', function () {
         it('should fill all arrays untill their length is 10', function () {
-            expect(blockhain.fillChunk(solutions.fillParameter)).to.deep.equal(solutions.fillSolution)
+            expect(blockhain.fillChunk(solutions.fillParameter)).to.deep.equal(solutions.fillSolution);
         })
     });
+    describe('Add up arrays', function () {
+        it('should add up all arrays until 1 chunk is left', function () {
+            expect(blockhain.addUpArray(solutions.addUpParameter)).to.deep.equal(solutions.addUpSolution);
+        })
+    });
+    describe('Hash the array', function () {
+        it('should hash the array with sha256', function () {
+            expect(blockhain.hashArray(solutions.hashArrayParameter)).to.equal(solutions.hashArraySolution);
+        } )
+    })
 });

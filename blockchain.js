@@ -1,14 +1,5 @@
 const _ = require('underscore');
-// const express = require('express');
-// const app = express();
-// const port = 8000;
-//
-// app.get('/', (req, res) => res.send('Solving the Algorithm...'));
-// app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-
-let string = 'text';
-
+const sha256 = require('js-sha256');
 
 const blockchain = (function(){
 
@@ -23,16 +14,12 @@ const blockchain = (function(){
                 newArray.push(item);
             }
         }
-        // fillToTen(newArray);
-        console.log(newArray);
         return newArray;
     };
 
     const chunkToTen = (array) => {
         // Array wordt opgesplitst in blokken van 10
         array = _.chunk(array, 10);
-
-        console.log(array);
         return array;
 
     };
@@ -40,11 +27,9 @@ const blockchain = (function(){
     const fillChunk = (chunkedArray) => {
         let fill = 0;
 
-
         if (chunkedArray.length === 10) {
             return chunkedArray;
         }
-
 
         for(let array of chunkedArray)
             while(array.length !== 10){
@@ -52,47 +37,65 @@ const blockchain = (function(){
                 array.splice(array.length, 0, newNumb);
                 fill++;
             }
-        console.log(chunkedArray);
-
-        return chunkedArray;
-        // addUpArrays(chunkedArray);
+            return chunkedArray;
     };
 
 
+    const addUpArray = (filledArrays) => {
 
-    const decrypt = () => {
+        // exit condition
+        if(filledArrays.length === 1){
+            return filledArrays.flat();
+        }
+
+        let arrayA = filledArrays[0];
+        let arrayB = filledArrays[1];
+        let newArray = [];
+
+
+        for(let i = 0; i < arrayA.length; i++){
+                let newNumb = parseInt(arrayA[i]) + parseInt(arrayB[i]);
+                newNumb = (newNumb%10);
+                newArray.push(newNumb);
+            }
+            filledArrays.splice(0,2);
+
+        filledArrays.unshift(newArray);
+
+        // Calls itself
+        return addUpArray(filledArrays);
+    };
+
+    const hashArray = (array) => {
+        let string = array.join();
+        string = string.replace(/,/g, '');
+        string = sha256(string);
+
+        return string;
+    };
+
+
+    const decrypt = (string) => {
         let block = stringToASCII(string);
         block = chunkToTen(block);
         block = fillChunk(block);
+        block = addUpArray(block);
+        block = hashArray(block);
 
-        console.log('tot nu toe heb ik: ', block);
+
+        console.log(block);
     };
 
     return {
         stringToASCII,
         chunkToTen,
         fillChunk,
+        addUpArray,
+        hashArray,
         decrypt
     }
 
 }());
-
-
-
-
-
-
-
-function addUpArrays(array){
-
-}
-
-
-
-
-
-
-
 
 module.exports = blockchain;
 
