@@ -1,18 +1,21 @@
 let expect = require("chai").expect;
 let blockhain = require('./../blockchain');
+let solutions = require('./../solutions');
 
-
-let assert = require('assert');
 describe('Array', function() {
-    describe('#indexOf()', function() {
-        it('should return -1 when the value is not present', function() {
-            assert.equal([1, 2, 3].indexOf(4), -1);
-        });
-    });
     describe("String to ASCII converter", function () {
         it('should convert string to ASCII', function () {
-            let solution = ['1', '1', '6', '1', '0', '1', '1', '2', '0', '1', '1', '6'];
-            expect(blockhain.stringToASCII('text')).to.deep.equal(solution);
+            expect(blockhain.stringToASCII(solutions.asciiParameter)).to.deep.equal(solutions.asciiSolution);
+        })
+    });
+    describe('Array Chunker', function () {
+        it('should chunk 1 big array into multiple arrays of 10', function () {
+            expect(blockhain.chunkToTen(solutions.chunkParameter)).to.deep.equal(solutions.chunkSolution);
+        })
+    });
+    describe('Fill to ten', function () {
+        it('should fill all arrays untill their length is 10', function () {
+            expect(blockhain.fillChunk(solutions.fillParameter)).to.deep.equal(solutions.fillSolution)
         })
     });
 });
