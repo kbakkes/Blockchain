@@ -2,9 +2,10 @@
   "name": "blockchain",
   "version": "1.0.0",
   "description": "",
-  "main": "blockchain.js",
+  "main": "app.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha",
+    "start": "node app.js"
   },
   "keywords": [
     "blockchain",
@@ -13,7 +14,9 @@
   "author": "kbakkes",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
     "express": "^4.16.4",
+    "mocha": "^6.0.2",
     "underscore": "^1.9.1"
   }
 }
