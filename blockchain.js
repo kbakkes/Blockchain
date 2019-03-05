@@ -9,13 +9,36 @@ const blockchain = (function(){
         // Nieuwe array
         let newArray = [];
         // Loop door de string heen
+
         for (let i = 0; i < stringArray.length; i++) {
-            for (let item of stringArray[i].charCodeAt(0).toString().split('')) {
-                newArray.push(item);
+            for (let item of stringArray[i]) {
+                if(isNaN(item)){
+                    item  = item.charCodeAt(0);
+                    newArray.push(item);
+
+                } else {
+                    newArray.push(item);
+                }
             }
         }
+
         return newArray;
     };
+
+    //
+    const splitArray = (array) => {
+        let newArray = [];
+
+
+        array.forEach((value, index) => {
+            Array.from(value.toString()).forEach((char) => {
+                newArray.push(parseInt(char))
+            })
+        });
+
+        return newArray;
+    };
+
 
     const chunkToTen = (array) => {
         // Array wordt opgesplitst in blokken van 10
@@ -58,8 +81,8 @@ const blockchain = (function(){
                 newNumb = (newNumb%10);
                 newArray.push(newNumb);
             }
-            filledArrays.splice(0,2);
 
+            filledArrays.splice(0,2);
         filledArrays.unshift(newArray);
 
         // Calls itself
@@ -68,9 +91,7 @@ const blockchain = (function(){
 
     const hashArray = (array) => {
         let string = array.join();
-        console.log('join', string);
         string = string.replace(/,/g, '');
-        console.log('zonder commas', string);
         string = sha256(string);
 
         return string;
@@ -79,13 +100,14 @@ const blockchain = (function(){
 
     const decrypt = (string) => {
         let block = stringToASCII(string);
+        block = splitArray(block);
         block = chunkToTen(block);
         block = fillChunk(block);
         block = addUpArray(block);
         block = hashArray(block);
 
-        console.log('test', block);
-    };
+        return block;
+        };
 
     return {
         stringToASCII,

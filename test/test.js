@@ -27,5 +27,5 @@ describe('Array', function() {
         it('should hash the array with sha256', function () {
             expect(blockhain.hashArray(solutions.hashArrayParameter)).to.equal(solutions.hashArraySolution);
         } )
-    })
+    });
 });
