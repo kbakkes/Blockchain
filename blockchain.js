@@ -37,12 +37,12 @@ const blockchain = (function(){
                 array.splice(array.length, 0, newNumb);
                 fill++;
             }
+
             return chunkedArray;
     };
 
 
     const addUpArray = (filledArrays) => {
-
         // exit condition
         if(filledArrays.length === 1){
             return filledArrays.flat();
@@ -68,7 +68,9 @@ const blockchain = (function(){
 
     const hashArray = (array) => {
         let string = array.join();
+        console.log('join', string);
         string = string.replace(/,/g, '');
+        console.log('zonder commas', string);
         string = sha256(string);
 
         return string;
@@ -82,8 +84,7 @@ const blockchain = (function(){
         block = addUpArray(block);
         block = hashArray(block);
 
-
-        console.log(block);
+        console.log('test', block);
     };
 
     return {
